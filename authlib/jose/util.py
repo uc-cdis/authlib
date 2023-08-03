@@ -8,6 +8,11 @@ def prepare_algorithm_key(algorithms, header, payload, key, private=False):
     if callable(key):
         key = key(header, payload)
 
+    # apply `fix: CVE-2022-39175` on v0.11
+    # https://github.com/lepture/authlib/commit/80b0808263c6ce88335532b78e62bf2522593390#diff-df89b0e3a859f7fe754890047b62a0e63a324b519316c6632125fd9c92b11a2e
+    elif key is None and "jwk" in header:
+        key = header["jwk"]
+
     if private:
         key = algorithm.prepare_private_key(key)
     else:
