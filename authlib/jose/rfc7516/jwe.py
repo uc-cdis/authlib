@@ -165,18 +165,18 @@ class JWE(object):
             raise MissingAlgorithmError()
 
         alg = header['alg']
-        if alg not in self._alg_algorithms:
+        if self._alg_algorithms is not None and alg not in self._alg_algorithms:
             raise UnsupportedAlgorithmError()
 
         if 'enc' not in header:
             raise MissingEncryptionAlgorithmError()
 
         enc = header['enc']
-        if enc not in self._enc_algorithms:
+        if self._enc_algorithms is not None and enc not in self._enc_algorithms:
             raise UnsupportedEncryptionAlgorithmError()
 
         zip = header.get('zip')
-        if zip and zip not in self._zip_algorithms:
+        if zip and self._zip_algorithms is not None and zip not in self._zip_algorithms:
             raise UnsupportedCompressionAlgorithmError()
 
     def _post_validate_header(self, header, alg):

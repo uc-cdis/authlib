@@ -32,7 +32,7 @@ class JWT(object):
         r'^\b(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}\b',
     ]), re.DOTALL)
 
-    def __init__(self, algorithms=None, private_headers=None):
+    def __init__(self, algorithms, private_headers=None):
         if algorithms is None:
             self._jws = JWS(JWS_ALGORITHMS, private_headers)
             self._jwe = JWE(JWE_ALGORITHMS, private_headers)

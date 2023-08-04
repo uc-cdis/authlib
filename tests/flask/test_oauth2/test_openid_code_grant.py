@@ -1,6 +1,6 @@
 from flask import json
 from authlib.common.urls import urlparse, url_decode, url_encode
-from authlib.jose import JWT
+from authlib.jose import jwt
 from authlib.oidc.core import CodeIDToken
 from authlib.oidc.core.grants import (
     OpenIDCodeGrant as _OpenIDCodeGrant,
@@ -80,7 +80,6 @@ class OpenIDCodeTest(BaseTestCase):
         self.assertIn('access_token', resp)
         self.assertIn('id_token', resp)
 
-        jwt = JWT()
         claims = jwt.decode(
             resp['id_token'], 'secret',
             claims_cls=CodeIDToken,
@@ -194,7 +193,6 @@ class RSAOpenIDCodeTest(BaseTestCase):
         self.assertIn('access_token', resp)
         self.assertIn('id_token', resp)
 
-        jwt = JWT()
         claims = jwt.decode(
             resp['id_token'], self.get_validate_key(),
             claims_cls=CodeIDToken,

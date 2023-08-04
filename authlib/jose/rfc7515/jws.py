@@ -252,7 +252,7 @@ class JWS(object):
             raise MissingAlgorithmError()
 
         alg = header['alg']
-        if alg not in self._algorithms:
+        if self._algorithms is not None and alg not in self._algorithms:
             raise UnsupportedAlgorithmError()
 
         names = self.REGISTERED_HEADER_PARAMETER_NAMES.copy()

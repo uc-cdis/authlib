@@ -24,7 +24,7 @@ from .rfc7518 import (
 from .rfc7519 import JWT, JWTClaims
 from .jwk import jwk
 
-jwt = JWT()
+jwt = JWT(JWS_ALGORITHMS)
 
 
 __all__ = [

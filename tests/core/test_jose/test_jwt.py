@@ -168,11 +168,9 @@ class JWTTest(unittest.TestCase):
         payload = {'name': 'hi'}
         private_key = read_file_path('rsa_private.pem')
         pub_key = read_file_path('rsa_public.pem')
-        data = jwt.encode(
-            {'alg': 'RSA-OAEP', 'enc': 'A256GCM'},
-            payload, pub_key
-        )
-        self.assertEqual(data.count(b'.'), 4)
+        _jwt = JWT(["RSA-OAEP", "A256GCM"])
+        data = _jwt.encode({"alg": "RSA-OAEP", "enc": "A256GCM"}, payload, pub_key)
+        self.assertEqual(data.count(b"."), 4)
 
-        claims = jwt.decode(data, private_key)
-        self.assertEqual(claims['name'], 'hi')
+        claims = _jwt.decode(data, private_key)
+        self.assertEqual(claims["name"], "hi")
